@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--屏幕适配：viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <script src="js/jquery.min.js"></script>
+    <title>js和android通信</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font: 400 14px/1.5 Tahoma,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;
+        }
+
+        button{
+            border-style: none;
+            width: 94%;
+            border-radius: 8px;
+            background-color: #28daff;
+            margin-top: 10px;
+            margin-left: 3%;
+            margin-right: 3%;
+            height: 42px;
+            font-size: 18px;
+            color: white;
+        }
+
+        button:active{
+            background-color: #18b0ff;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="btn1">传递数据给java</button>
+
+    <button id="btn2">接收来自java的数据</button>
+
+<script>
+
+    var action = "";
+
+    $("#btn1").on("click", function(){
+        var method = "translateJsData";//js调用的android方法名
+        var params = {"phone":"10086", "callback":""};//callback用于回调js
+        callAndroidMethod(method, params);
+    });
+
+    $("#btn2").on("click", function(){
+        var params = {"action":"getHotelData","callback": "rendDetail"};
+        var method = "getNativeData";//js调用的android方法名
+        callAndroidMethod(method, params);
+    });
+
+
+    /**回调方法，当安卓获取json数据后，回调该方法，给js传递数据，H5显示页面*/
+    function rendDetail(json) {
+        console.log("js收到android回调=" + json);
+
+    }
+
+    /**
+     * 统一管理js调用安卓方法
+     * @param method 方法名
+     * @param params 参数 数组格式
+     */
+    var callAndroidMethod = function(method, params){
+        window.jsInterface.invokeMethod(method, [JSON.stringify(params)]);//json对象转成字符串，再转成字符串数组
+    }
+</script>
+</body>
+
+</html>
