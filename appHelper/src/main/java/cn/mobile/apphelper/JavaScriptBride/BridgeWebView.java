@@ -1,4 +1,4 @@
-package com.cn.mobile.apphelper.view;
+package cn.mobile.apphelper.JavaScriptBride;
 
 import android.content.Context;
 import android.util.AttributeSet;

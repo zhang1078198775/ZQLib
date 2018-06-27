@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.cn.mobile.apphelper.activity.ActivityWebView;
-import com.cn.mobile.apphelper.view.BridgeWebView;
-
+import cn.mobile.apphelper.JavaScriptBride.*;
 
 
 public class MainActivity extends AppCompatActivity {

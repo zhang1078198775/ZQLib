@@ -1,12 +1,8 @@
-package com.cn.mobile.apphelper.interfaces;
+package cn.mobile.apphelper.JavaScriptBride;
 
 import android.app.Activity;
 import android.text.TextUtils;
 import android.webkit.WebView;
-import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by zhangqi on 2018/6/26.

@@ -1,4 +1,4 @@
-package com.cn.mobile.apphelper.utils;
+package cn.mobile.apphelper.JavaScriptBride;
 
 import android.app.Activity;
 import android.content.Context;

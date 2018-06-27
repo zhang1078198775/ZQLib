@@ -1,16 +1,10 @@
 package com.cn.mobile.zqlib;
 
-import android.Manifest;
 import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.cn.mobile.apphelper.interfaces.JavaSctiptInterface;
+import cn.mobile.apphelper.JavaScriptBride.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;

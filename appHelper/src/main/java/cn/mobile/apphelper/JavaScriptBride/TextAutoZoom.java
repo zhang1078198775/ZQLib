@@ -1,4 +1,4 @@
-package com.cn.mobile.apphelper.view;
+package cn.mobile.apphelper.JavaScriptBride;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

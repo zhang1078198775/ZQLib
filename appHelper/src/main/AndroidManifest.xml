@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cn.mobile.apphelper" >
+    package="cn.mobile.apphelper" >
 
     <application
         android:allowBackup="true"
@@ -7,6 +7,6 @@
         android:supportsRtl="true">
         <!--<activity android:name=".activity.PreviewDelActivity"></activity>-->
 
-        <activity android:name=".activity.ActivityWebView"/>
+        <activity android:name=".JavaScriptBride.ActivityWebView"/>
     </application>
 </manifest>

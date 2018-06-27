@@ -1,4 +1,4 @@
-package com.cn.mobile.apphelper.activity;
+package cn.mobile.apphelper.JavaScriptBride;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,13 +21,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.cn.mobile.apphelper.R;
-import com.cn.mobile.apphelper.utils.KeyboardTool;
-import com.cn.mobile.apphelper.view.BridgeWebView;
-import com.cn.mobile.apphelper.view.TextAutoZoom;
 
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
+
+import cn.mobile.apphelper.R;
 
 
 /**
@@ -48,7 +45,6 @@ public class ActivityWebView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        //   RxBarTool.setTransparentStatusBar(this);
         setContentView(R.layout.webview);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         initView();// 初始化控件 - FindViewById之类的操作
@@ -59,7 +55,7 @@ public class ActivityWebView extends Activity {
 
     public static void startWebView(Context mContext, String sctiptInterface,String url,String showTitle){
 
-        Intent intent=new Intent(mContext,ActivityWebView.class);
+        Intent intent=new Intent(mContext, ActivityWebView.class);
         intent.putExtra("scriptInterface", sctiptInterface);
         intent.putExtra("showTitle",showTitle);
         intent.putExtra("url",url);
@@ -218,7 +214,7 @@ public class ActivityWebView extends Activity {
 
         try {
 
-            Class clazz =ActivityWebView.this.getClassLoader().loadClass(sctiptInterface);
+            Class clazz = ActivityWebView.this.getClassLoader().loadClass(sctiptInterface);
             Constructor constructor = clazz.getConstructor(Activity.class,WebView.class);
             Object obj = constructor.newInstance(this,webBase);
             webBase.addBridgeInterface(obj);//注册桥梁类，该类负责H5和android通信
