@@ -2,10 +2,11 @@ package com.cn.mobile.zqlib;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.WebChromeClient;
-import android.webkit.WebViewClient;
+import android.view.View;
 
+import com.cn.mobile.apphelper.activity.ActivityWebView;
 import com.cn.mobile.apphelper.view.BridgeWebView;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,15 +16,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        //sajdlsajd
+    public void btnclick(View view){
 
-        mBdwebview = (BridgeWebView) findViewById(R.id.bdwebview);//初始化BridgeWebView
-        mBdwebview.loadUrl("file:///android_asset/BridgeWebView/index.html");
-        mBdwebview.addBridgeInterface(new MyJavaSctiptInterface(this,mBdwebview));//注册桥梁类，该类负责H5和android通信
+        ActivityWebView.startWebView(this,"com.cn.mobile.zqlib.MyJavaSctiptInterface","file:///android_asset/BridgeWebView/index.html","标题");
 
-
-        mBdwebview.setWebViewClient(new WebViewClient());
-        mBdwebview.setWebChromeClient(new WebChromeClient());
     }
 }

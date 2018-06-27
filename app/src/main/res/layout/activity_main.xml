@@ -5,10 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.cn.mobile.apphelper.view.BridgeWebView
-        android:id="@+id/bdwebview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <Button
+        android:onClick="btnclick"
+        android:text="按下我"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--<com.cn.mobile.apphelper.view.BridgeWebView-->
+        <!--android:id="@+id/bdwebview"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
 
 
