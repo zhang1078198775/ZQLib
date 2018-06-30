@@ -26,6 +26,8 @@ import android.widget.ProgressBar;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import cn.mobile.apphelper.R;
 import cn.mobile.apphelper.common.utils.PhotoTool;
@@ -150,7 +152,24 @@ public class ActivityWebView extends Activity {
         webSettings.setDomStorageEnabled(true);//是否开启本地DOM存储  鉴于它的安全特性（任何人都能读取到它，尽管有相应的限制，将敏感数据存储在这里依然不是明智之举），Android 默认是关闭该功能的。
         webBase.setSaveEnabled(true);
         webBase.setKeepScreenOn(true);
-
+        try {//解决跨域问题
+            if (Build.VERSION.SDK_INT >= 16) {
+                Class<?> clazz = webBase.getSettings().getClass();
+                Method method = clazz.getMethod(
+                        "setAllowUniversalAccessFromFileURLs", boolean.class);
+                if (method != null) {
+                    method.invoke(webBase.getSettings(), true);
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
         // 设置setWebChromeClient对象
         webBase.setWebChromeClient(new WebChromeClient() {
