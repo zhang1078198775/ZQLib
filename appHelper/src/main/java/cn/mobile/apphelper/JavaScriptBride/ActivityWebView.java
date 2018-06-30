@@ -14,6 +14,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,9 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 
 import cn.mobile.apphelper.R;
+import cn.mobile.apphelper.common.utils.PhotoTool;
 
 
 /**
@@ -39,7 +43,6 @@ public class ActivityWebView extends Activity {
     TextAutoZoom mRxTextAutoZoom;
     LinearLayout llIncludeTitle;
     private String webPath = "";
-    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +181,7 @@ public class ActivityWebView extends Activity {
                 pbWebBase.setVisibility(View.GONE);
             }
 
+
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 pbWebBase.setVisibility(View.VISIBLE);
@@ -222,13 +226,6 @@ public class ActivityWebView extends Activity {
             e.printStackTrace();
 
         }
-
-
-
-
-    //    webBase.loadUrl(webPath);
-//        Log.v("帮助类完整连接", webPath);
-//        webBase.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,webBase.getHeight()));
     }
 
     @Override
@@ -249,6 +246,28 @@ public class ActivityWebView extends Activity {
         } catch (Exception ex) {
         }
     }
+    public void uploadImag(Uri uri) {
+        String path=PhotoTool.getImageAbsolutePath(this, uri);
+        webBase.loadUrl("javascript:getPhoto('" + path + "')");
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case PhotoTool.GET_IMAGE_FROM_PHONE://选择相册之后的处理
+                    uploadImag(data.getData());
+                    break;
 
+                case PhotoTool.GET_IMAGE_BY_CAMERA://选择照相机之后的处理
+                    uploadImag(PhotoTool.imageUriFromCamera);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+    }
 }

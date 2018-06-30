@@ -5,6 +5,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import cn.mobile.apphelper.JavaScriptBride.*;
+import cn.mobile.apphelper.photoselect.ImageChooseDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +41,9 @@ public class MyJavaSctiptInterface extends JavaSctiptInterface{
         }
     }
 
-
+    public void photoSelect(String[] json){
+        ImageChooseDialog dialogChooseImage = new ImageChooseDialog(mActivity);
+        dialogChooseImage.show();
+    }
 
 }

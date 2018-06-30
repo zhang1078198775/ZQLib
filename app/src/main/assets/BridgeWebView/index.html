@@ -42,7 +42,7 @@
     var action = "";
 
     $("#btn1").on("click", function(){
-        var method = "translateJsData";//js调用的android方法名
+        var method = "photoSelect";//js调用的android方法名
         var params = {"phone":"10086", "callback":""};//callback用于回调js
         callAndroidMethod(method, params);
     });
@@ -58,6 +58,11 @@
     function rendDetail(json) {
         console.log("js收到android回调=" + json);
 
+    }
+
+    function getPhoto(json){
+           alert(json);
+   //        console.log("js收到照片回调=" + json);
     }
 
     /**

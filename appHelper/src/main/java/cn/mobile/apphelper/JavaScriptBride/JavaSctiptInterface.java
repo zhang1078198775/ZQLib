@@ -18,16 +18,9 @@ public class JavaSctiptInterface {
         this.webView = webView;
     }
 
-    /**
-     * 统一管理所有android调用js方法
-     *
-     * @param callback js回调方法名
-     * @param json     传递json数据
-     */
     public void invokeJavaScript(final String callback, final String json) {
 
         if(TextUtils.isEmpty(callback)) return;
-        //调用js方法必须在主线程
         webView.post(new Runnable() {
             @Override
             public void run() {

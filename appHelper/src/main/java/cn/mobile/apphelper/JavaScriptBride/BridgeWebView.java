@@ -12,7 +12,6 @@ import java.lang.reflect.Method;
  * Created by zhangqi on 2018/6/26.
  */
 public class BridgeWebView extends WebView {
-
     /***
      * js调用android方法的映射字符串
      **/
@@ -75,7 +74,6 @@ public class BridgeWebView extends WebView {
         private Object mTarget;
         private Method targetMethod;
 
-
         public MyJavaScriptMethod(Object targer) {
             this.mTarget = targer;
         }
@@ -92,7 +90,6 @@ public class BridgeWebView extends WebView {
             try {
                 Method targetMethod = this.mTarget.getClass().getDeclaredMethod(method, params);
                 targetMethod.invoke(mTarget, new Object[]{json});//反射调用js传递过来的方法，传参
-
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
@@ -100,6 +97,9 @@ public class BridgeWebView extends WebView {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+        }
+
+        public void openCameraAndFile(){
 
         }
     }
