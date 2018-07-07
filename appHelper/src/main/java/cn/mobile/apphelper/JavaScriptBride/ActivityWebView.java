@@ -8,10 +8,13 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -28,6 +31,7 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import cn.mobile.apphelper.R;
 import cn.mobile.apphelper.common.utils.PhotoTool;
@@ -107,6 +111,25 @@ public class ActivityWebView extends Activity {
         KeyboardTool.hideSoftInput(this);
     }
 
+    private void syncCookie(String url, Map<String, String> headers) {
+        try {
+            CookieSyncManager.createInstance(webBase.getContext());//创建一个cookie管理器
+            CookieManager cookieManager = CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+            cookieManager.removeSessionCookie();// 移除以前的cookie
+            cookieManager.removeAllCookie();
+            StringBuilder sbCookie = new StringBuilder();//创建一个拼接cookie的容器,为什么这么拼接，大家查阅一下http头Cookie的结构
+//            sbCookie.append(_mApplication.getUserInfo().getSessionID());//拼接sessionId
+//            sbCookie.append(String.format(";domain=%s", ""));
+//            sbCookie.append(String.format(";path=%s", ""));
+            String cookieValue = sbCookie.toString();
+            cookieManager.setCookie(url, cookieValue);//为url设置cookie
+            CookieSyncManager.getInstance().sync();//同步cookie
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public int dp2px(float dpValue) {
         final float scale = getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -184,7 +207,6 @@ public class ActivityWebView extends Activity {
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                // TODO Auto-generated method stub
                 pbWebBase.setProgress(newProgress);
                 super.onProgressChanged(view, newProgress);
             }
@@ -200,6 +222,14 @@ public class ActivityWebView extends Activity {
                 pbWebBase.setVisibility(View.GONE);
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                String url = request.getUrl().toString();
+                syncCookie(url,request.getRequestHeaders());
+                return super.shouldInterceptRequest(view, request);
+
+            }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {

@@ -54,6 +54,8 @@
     });
 
 
+
+
     /**回调方法，当安卓获取json数据后，回调该方法，给js传递数据，H5显示页面*/
     function rendDetail(json) {
         console.log("js收到android回调=" + json);
@@ -73,6 +75,10 @@
     var callAndroidMethod = function(method, params){
         window.jsInterface.invokeMethod(method, [JSON.stringify(params)]);//json对象转成字符串，再转成字符串数组
     }
+
+    var params = {"action":"getHotelData","callback": "rendDetail"};
+        var method = "getNativeData";//js调用的android方法名
+        callAndroidMethod(method, params);
 </script>
 </body>
 

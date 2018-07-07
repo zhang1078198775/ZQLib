@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void btnclick(View view){
 
-        Intent intent = new Intent(this, ActivityScanerCode.class);
-        startActivity(intent);
-    //    ActivityWebView.startWebView(this,"com.cn.mobile.zqlib.MyJavaSctiptInterface","file:///android_asset/BridgeWebView/index.html","标题");
+//        Intent intent = new Intent(this, ActivityScanerCode.class);
+//        startActivity(intent);
+        ActivityWebView.startWebView(this,"com.cn.mobile.zqlib.MyJavaSctiptInterface","file:///android_asset/BridgeWebView/index.html","标题");
     }
 }
